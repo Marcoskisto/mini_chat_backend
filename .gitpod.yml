@@ -1,5 +1,9 @@
 ports: 
     - port: 8080
 tasks:
+<<<<<<< HEAD
     - init: mysql < DDL.sql
+=======
+    - init mysql < DDL.sql
+>>>>>>> 229ac2afbf5fde98ef41a81dc299662265d237ef
 image: gitpod/workspace-mysql
