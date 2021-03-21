@@ -1,4 +1,4 @@
-create shema mini_chat;
+create schema mini_chat;
 
 use mini_chat;
 
