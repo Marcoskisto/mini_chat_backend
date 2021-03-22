@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.mini_chat;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
@@ -40,6 +41,8 @@ class MiniChatApplicationTests {
 	@Test
 	void testaUsuario() {
 		Usuario usuario = usuarioRepo.findById(13L).get();
+		assertEquals("aluno_doido", usuario.getNickname());
 		assertNotNull(usuario);
 	}
+	
 }
