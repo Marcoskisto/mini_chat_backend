@@ -9,6 +9,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.gov.sp.fatec.mini_chat.entity.Usuario;
+import br.gov.sp.fatec.mini_chat.repository.GrupoRepository;
 import br.gov.sp.fatec.mini_chat.repository.UsuarioRepository;
 
 @SpringBootTest
@@ -18,7 +19,10 @@ class MiniChatApplicationTests {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepo;
-
+	
+	@Autowired
+	private GrupoRepository grupoRepo;
+	
 	@Test
 	void contextLoads() {
 	}
@@ -31,5 +35,11 @@ class MiniChatApplicationTests {
 		usuarioRepo.save(usuario);
 		
 		assertNotNull(usuario.getId());	
+	}
+	
+	@Test
+	void testaUsuario() {
+		Usuario usuario = usuarioRepo.findById(13L).get();
+		assertNotNull(usuario);
 	}
 }

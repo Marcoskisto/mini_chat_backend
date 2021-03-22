@@ -1,10 +1,15 @@
 package br.gov.sp.fatec.mini_chat.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import java.util.Set;
+
 import javax.persistence.Column;
 
 @Entity
@@ -21,6 +26,10 @@ public class Usuario {
 	
 	@Column(name = "usr_email")
 	private String email;
+	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy="usuarios")
+	private Set<Grupo> grupos;
+	
 	
 	public long getId() {
 		return id;
@@ -44,6 +53,14 @@ public class Usuario {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Set<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(Set<Grupo> grupos) {
+		this.grupos = grupos;
 	}
 	
 	
