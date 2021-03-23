@@ -43,3 +43,7 @@ create table msg_mensagem (
     foreign key msg_usr_destin_fk (usr_destin_id) references usr_usuario(usr_id),
     foreign key msg_grp_fk (grp_destin_id) references grp_grupo(grp_id)
 );
+
+insert into grp_grupo (grp_titulo, grp_descricao) values("grupo_A","discursao sobre BD");
+insert into usr_usuario (usr_nickname, usr_email) values("joselito", "jose@teste.com");
+insert into ugu_grupo_usuario values( 1, 1);
