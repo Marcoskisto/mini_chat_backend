@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity(name = "msg_mensagem")
 public class Mensagem {
@@ -17,12 +18,15 @@ public class Mensagem {
 	@Column(name = "msg_description")
 	private String description;
 	
+	@OneToOne
 	@Column(name = "usr_origin_id")
 	private Long userOriginId;
 	
+	@OneToOne
 	@Column(name = "usr_destin_id")
 	private Long userDestinId;
 	
+	@OneToOne
 	@Column(name = "grp_destin_id")
 	private Long groupDestinId;
 	

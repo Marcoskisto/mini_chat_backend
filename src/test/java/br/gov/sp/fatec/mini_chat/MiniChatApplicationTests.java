@@ -57,6 +57,5 @@ class MiniChatApplicationTests {
 		usuario.getGrupos().add(grupo);
 		usuarioRepo.save(usuario);
 		assertNotNull(usuario.getGrupos().iterator().next().getId());
-		
 	}
 }
