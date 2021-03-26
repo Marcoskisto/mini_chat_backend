@@ -2,9 +2,16 @@ create schema mini_chat;
 
 use mini_chat;
 
+drop table msg_mensagem;
+drop table ugu_grupo_usuario;
+drop table usr_usuario;
+drop table grp_grupo;
+
 create user 'user'@'localhost' identified by 'pass123';
 
 grant select, insert, delete, update on mini_chat.* to user@'localhost';
+
+
 
 create table grp_grupo ( 
 	grp_id bigint unsigned not null auto_increment,

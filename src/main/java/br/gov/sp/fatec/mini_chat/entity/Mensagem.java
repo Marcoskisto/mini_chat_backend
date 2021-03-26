@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity(name = "msg_mensagem")
+@Entity
 @Table(name = "msg_mensagem")
 public class Mensagem {
 	
@@ -22,15 +22,15 @@ public class Mensagem {
 	@Column(name = "msg_description")
 	private String description;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = Usuario.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "usr_origin_id")
 	private Long userOriginId;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = Usuario.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "usr_destin_id")
 	private Long userDestinId;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = Grupo.class , fetch = FetchType.EAGER)
 	@JoinColumn(name = "grp_destin_id")
 	private Long groupDestinId;
 	
@@ -38,7 +38,7 @@ public class Mensagem {
 		return id;
 	}
 	public void setId(Long id) {
-		this.id = id;
+		this.id = id;		
 	}
 	public String getDescription() {
 		return description;
