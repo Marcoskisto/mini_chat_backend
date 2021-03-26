@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -34,6 +35,9 @@ public class Grupo {
 			inverseJoinColumns = {@JoinColumn(name = "usr_id")}
 			)
 	private Set<Usuario> usuarios;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "groupDestinId")
+	private Set<Mensagem> mensagens;
 	
 	public Long getId() {
 		return id;
@@ -59,5 +63,4 @@ public class Grupo {
 	public void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
-		
 }

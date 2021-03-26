@@ -2,10 +2,12 @@ package br.gov.sp.fatec.mini_chat.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "msg_mensagem")
 public class Mensagem {
@@ -18,16 +20,16 @@ public class Mensagem {
 	@Column(name = "msg_description")
 	private String description;
 	
-	@OneToOne
-	@Column(name = "usr_origin_id")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "usr_origin_id")
 	private Long userOriginId;
 	
-	@OneToOne
-	@Column(name = "usr_destin_id")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "usr_destin_id")
 	private Long userDestinId;
 	
-	@OneToOne
-	@Column(name = "grp_destin_id")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "grp_destin_id")
 	private Long groupDestinId;
 	
 	public Long getId() {

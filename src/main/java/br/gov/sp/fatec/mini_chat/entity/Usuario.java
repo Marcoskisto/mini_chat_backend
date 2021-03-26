@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import java.util.Set;
@@ -30,6 +31,11 @@ public class Usuario {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy="usuarios")
 	private Set<Grupo> grupos;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userOriginId")
+	private Set<Mensagem> mensagensEnviadas;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userDestinId")
+	private Set<Mensagem> mensagensRecebidas;
 	
 	public long getId() {
 		return id;
