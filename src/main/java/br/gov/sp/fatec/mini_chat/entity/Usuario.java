@@ -31,10 +31,10 @@ public class Usuario {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy="usuarios")
 	private Set<Grupo> grupos;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userOriginId")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "remetente")
 	private Set<Mensagem> mensagensEnviadas;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userDestinId")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "destinatario")
 	private Set<Mensagem> mensagensRecebidas;
 	
 	public long getId() {
@@ -67,6 +67,22 @@ public class Usuario {
 
 	public void setGrupos(Set<Grupo> grupos) {
 		this.grupos = grupos;
+	}
+
+	public Set<Mensagem> getMensagensEnviadas() {
+		return mensagensEnviadas;
+	}
+
+	public void setMensagensEnviadas(Set<Mensagem> mensagensEnviadas) {
+		this.mensagensEnviadas = mensagensEnviadas;
+	}
+
+	public Set<Mensagem> getMensagensRecebidas() {
+		return mensagensRecebidas;
+	}
+
+	public void setMensagensRecebidas(Set<Mensagem> mensagensRecebidas) {
+		this.mensagensRecebidas = mensagensRecebidas;
 	}
 	
 	

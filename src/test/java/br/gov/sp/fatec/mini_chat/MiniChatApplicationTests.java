@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.HashSet;
-
+import java.util.Iterator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +12,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.gov.sp.fatec.mini_chat.entity.Grupo;
+import br.gov.sp.fatec.mini_chat.entity.Mensagem;
 import br.gov.sp.fatec.mini_chat.entity.Usuario;
 import br.gov.sp.fatec.mini_chat.repository.GrupoRepository;
 import br.gov.sp.fatec.mini_chat.repository.UsuarioRepository;
@@ -43,6 +44,28 @@ class MiniChatApplicationTests {
 		assertEquals("joselito", grupo.getUsuarios().iterator().next().getNickname());
 	}
 	
+	@Test
+	void testaMensagemEnviada() {
+		Usuario usuario = usuarioRepo.findById(1L).get();
+		Iterator<Mensagem> mensagems = usuario.getMensagensEnviadas().iterator();
+		assertEquals("ola_maria", (mensagems.next()).getDescription());
+		assertEquals("ola_grupo", (mensagems.next()).getDescription());
+	}
+	
+	@Test
+	void testaMensagemRecebidaPorUsuario() {
+		Usuario usuario = usuarioRepo.findById(2L).get();
+		Iterator<Mensagem> mensagems = usuario.getMensagensRecebidas().iterator();
+		assertEquals("ola_maria", (mensagems.next()).getDescription());
+	}
+	
+	@Test
+	void testaMensagemRecebidaPorGrupo() {
+		Grupo grupo = grupoRepo.findById(1L).get();
+		Iterator<Mensagem> mensagems = grupo.getMensagens().iterator();
+		assertEquals("ola_grupo", (mensagems.next()).getDescription());
+	}
+		
 	@Test
 	void testaInsercaoUsuario(){
 		Usuario usuario = new Usuario();

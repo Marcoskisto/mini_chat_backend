@@ -1,5 +1,6 @@
 create schema mini_chat;
 
+
 use mini_chat;
 
 drop table msg_mensagem;
@@ -53,4 +54,7 @@ create table msg_mensagem (
 
 insert into grp_grupo (grp_titulo, grp_descricao) values("grupo_A","discursao sobre BD");
 insert into usr_usuario (usr_nickname, usr_email) values("joselito", "jose@teste.com");
+insert into usr_usuario (usr_nickname, usr_email) values("maria", "maria@teste.com");
 insert into ugu_grupo_usuario values( 1, 1);
+insert into msg_mensagem (msg_description, usr_origin_id, usr_destin_id) values ("ola_maria", 1, 2);
+insert into msg_mensagem (msg_description, usr_origin_id, grp_destin_id) values ("ola_grupo", 1, 1);

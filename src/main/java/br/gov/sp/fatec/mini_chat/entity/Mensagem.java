@@ -22,17 +22,17 @@ public class Mensagem {
 	@Column(name = "msg_description")
 	private String description;
 	
-	@ManyToOne(targetEntity = Usuario.class, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usr_origin_id")
-	private Long userOriginId;
+	private Usuario remetente;
 	
-	@ManyToOne(targetEntity = Usuario.class, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usr_destin_id")
-	private Long userDestinId;
+	private Usuario destinatario;
 	
-	@ManyToOne(targetEntity = Grupo.class , fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "grp_destin_id")
-	private Long groupDestinId;
+	private Grupo grupo;
 	
 	public Long getId() {
 		return id;
@@ -46,22 +46,23 @@ public class Mensagem {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Long getOriginId() {
-		return userOriginId;
+	
+	public Usuario getRemetente() {
+		return remetente;
 	}
-	public void setOriginId(Long originId) {
-		this.userOriginId = originId;
+	public void setRemetente(Usuario remetente) {
+		this.remetente = remetente;
 	}
-	public Long getDestinId() {
-		return userDestinId;
+	public Usuario getDestinatario() {
+		return destinatario;
 	}
-	public void setDestinId(Long destinId) {
-		this.userDestinId = destinId;
+	public void setDestinatario(Usuario destinatario) {
+		this.destinatario = destinatario;
 	}
-	public Long getGroupDestinId() {
-		return groupDestinId;
+	public Grupo getGrupo() {
+		return grupo;
 	}
-	public void setGroupDestinId(Long groupDestinId) {
-		this.groupDestinId = groupDestinId;
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
 	}
 }

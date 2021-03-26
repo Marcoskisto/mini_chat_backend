@@ -36,7 +36,7 @@ public class Grupo {
 			)
 	private Set<Usuario> usuarios;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "groupDestinId")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "grupo")
 	private Set<Mensagem> mensagens;
 	
 	public Long getId() {
@@ -62,5 +62,11 @@ public class Grupo {
 	}
 	public void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
+	}
+	public Set<Mensagem> getMensagens() {
+		return mensagens;
+	}
+	public void setMensagens(Set<Mensagem> mensagens) {
+		this.mensagens = mensagens;
 	}
 }
