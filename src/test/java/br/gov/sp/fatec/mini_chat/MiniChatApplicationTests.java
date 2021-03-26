@@ -1,10 +1,13 @@
 package br.gov.sp.fatec.mini_chat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -81,4 +84,15 @@ class MiniChatApplicationTests {
 		usuarioRepo.save(usuario);
 		assertNotNull(usuario.getGrupos().iterator().next().getId());
 	}
+	@Test
+	void testaBuscaUsuarioNickAndEmail() {
+		Usuario usuario = usuarioRepo.findByNicknameAndEmail("joselito", "jose@teste.com");
+		assertEquals(1, usuario.getId());
+		
+	}
+	@Test
+	void testaBuscaUsuarioPorGrupoTitulo() {
+		List<Usuario> usuarios = usuarioRepo.buscaPorGrupoTituloQuery("grupo_A");
+		assertFalse(usuarios.isEmpty());
+	}	
 }
