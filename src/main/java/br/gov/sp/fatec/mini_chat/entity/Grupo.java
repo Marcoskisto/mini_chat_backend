@@ -2,6 +2,7 @@ package br.gov.sp.fatec.mini_chat.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,7 +37,7 @@ public class Grupo {
 			)
 	private Set<Usuario> usuarios;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "grupo")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "grupo", cascade = CascadeType.REMOVE)
 	private Set<Mensagem> mensagens;
 	
 	public Long getId() {

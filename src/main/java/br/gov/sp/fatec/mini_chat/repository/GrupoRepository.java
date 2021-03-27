@@ -6,5 +6,5 @@ import br.gov.sp.fatec.mini_chat.entity.Grupo;
 
 public interface GrupoRepository extends JpaRepository<Grupo, Long>{
 
-	
+	Grupo findByTituloContainsIgnoreCase(String titulo);
 }
