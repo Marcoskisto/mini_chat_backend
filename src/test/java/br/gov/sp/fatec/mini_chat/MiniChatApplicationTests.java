@@ -90,9 +90,16 @@ class MiniChatApplicationTests {
 		assertEquals(1, usuario.getId());
 		
 	}
+	
 	@Test
-	void testaBuscaUsuarioPorGrupoTitulo() {
-		List<Usuario> usuarios = usuarioRepo.buscaPorGrupoTituloQuery("grupo_A");
+	void testaBuscaUsuarioNickOrEmail() {
+		Usuario usuario = usuarioRepo.findByNicknameOrEmailContainsIgnoreCase("joselito", "jose@teste.com");
+		assertEquals(1, usuario.getId());
+		
+	}
+	@Test
+	void testaBuscaUsuarioPorGrupoQuery() {
+		List<Usuario> usuarios = usuarioRepo.buscaUsuarioPorGrupoQuery("grupo_A");
 		assertFalse(usuarios.isEmpty());
-	}	
+	}
 }
