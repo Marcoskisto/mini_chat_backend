@@ -40,7 +40,7 @@ public class AdministracaoServiceImp implements AdministracaoService{
 	@Override
 	public Grupo criarGrupo(String titulo, String descricao) {
 		Grupo grupo = new Grupo();
-		grupo = grupoRepo.findByTituloContainsIgnoreCase(titulo);
+		grupo = grupoRepo.findByTituloIgnoreCase(titulo);
 		
 		if (grupo == null) {
 			return null;
@@ -55,7 +55,7 @@ public class AdministracaoServiceImp implements AdministracaoService{
 	@Override
 	public List<Grupo> excluirGrupo(String titulo) {
 		Grupo grupo = new Grupo();
-		grupo = grupoRepo.findByTituloContainsIgnoreCase(titulo);
+		grupo = grupoRepo.findByTituloIgnoreCase(titulo);
 		if (grupo != null) {
 			grupoRepo.delete(grupo);
 		}
@@ -68,7 +68,7 @@ public class AdministracaoServiceImp implements AdministracaoService{
 		Usuario usuario = new Usuario();
 		Grupo grupo = new Grupo();
 		usuario = usuarioRepo.findByNicknameOrEmailContainsIgnoreCase(usuarioNick, grupoTitulo);
-		grupo = grupoRepo.findByTituloContainsIgnoreCase(grupoTitulo);
+		grupo = grupoRepo.findByTituloIgnoreCase(grupoTitulo);
 		
 		if (usuario != null) {
 			grupo.getUsuarios().add(usuario);		
@@ -84,7 +84,7 @@ public class AdministracaoServiceImp implements AdministracaoService{
 		Grupo grupo = new Grupo();
 		
 		usuario = usuarioRepo.findByNicknameOrEmailContainsIgnoreCase(usuarioNick, grupoTitulo);
-		grupo = grupoRepo.findByTituloContainsIgnoreCase(grupoTitulo);
+		grupo = grupoRepo.findByTituloIgnoreCase(grupoTitulo);
 		
 		if (usuario != null) {
 			grupo.getUsuarios().remove(usuario);		
