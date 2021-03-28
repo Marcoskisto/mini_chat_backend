@@ -59,14 +59,14 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 	@Override
 	public List<Mensagem> recuperaConversa(String remetenteNick, String destinatarioNick) {
 		
-		return mensagemRepo.findByRemetenteNickAndDestinatarioNick(remetenteNick, destinatarioNick);
+		return mensagemRepo.findByRemetenteNicknameAndDestinatarioNickname(remetenteNick, destinatarioNick);
 	
 	}
 
 	@Override
 	public List<Mensagem> recuperaReuniao(String remetenteNick, String tituloGrupo) {
 		
-		return mensagemRepo.findByRemetenteNickAndGrupoTitulo(remetenteNick, tituloGrupo);
+		return mensagemRepo.findByRemetenteNicknameAndGrupoTitulo(remetenteNick, tituloGrupo);
 		
-	}d
+	}
 }

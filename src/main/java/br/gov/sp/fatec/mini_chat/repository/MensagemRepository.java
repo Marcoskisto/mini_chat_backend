@@ -13,7 +13,7 @@ public interface MensagemRepository extends JpaRepository<Mensagem, Long>{
 	
 	public List<Mensagem> findByRemetenteId(Long usuarioId);
 
-	public List<Mensagem> findByRemetenteNickAndDestinatarioNick(String remetenteNick, String destinatarioNick);
+	public List<Mensagem> findByRemetenteNicknameAndDestinatarioNickname(String remetenteNickame, String destinatarioNickame);
 
-	public List<Mensagem> findByRemetenteNickAndGrupoTitulo(String remetenteNick, String grupoTitulo);
+	public List<Mensagem> findByRemetenteNicknameAndGrupoTitulo(String remetenteNickame, String grupoTitulo);
 }

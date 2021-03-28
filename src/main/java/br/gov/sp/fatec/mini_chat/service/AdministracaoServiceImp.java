@@ -19,7 +19,6 @@ public class AdministracaoServiceImp implements AdministracaoService{
 	@Autowired
 	GrupoRepository grupoRepo;	
 	
-	@Autowired
 	ComunicacaoService comunicacaoService;
 	
 	@Override
