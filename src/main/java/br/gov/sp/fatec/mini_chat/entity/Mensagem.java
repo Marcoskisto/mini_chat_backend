@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "msg_mensagem")
 public class Mensagem {
@@ -22,14 +24,17 @@ public class Mensagem {
 	@Column(name = "msg_description")
 	private String description;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usr_origin_id")
 	private Usuario remetente;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usr_destin_id")
 	private Usuario destinatario;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "grp_destin_id")
 	private Grupo grupo;

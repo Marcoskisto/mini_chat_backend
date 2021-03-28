@@ -9,6 +9,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -27,6 +29,7 @@ public class Usuario {
 	
 	@Column(name = "usr_email")
 	private String email;
+	
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy="usuarios")
 	private Set<Grupo> grupos;

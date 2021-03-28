@@ -1,6 +1,9 @@
 package br.gov.sp.fatec.mini_chat.service;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,5 +93,19 @@ public class AdministracaoServiceImp implements AdministracaoService{
 			grupoRepo.save(grupo);
 		}
 		return grupo;
+	}
+
+	@Override
+	public List<Usuario> buscaTodosUsuarios() {
+		return usuarioRepo.findAll();
+	}
+
+	@Override
+	public Usuario buscaUsuarioByid(Long id) {
+		Optional<Usuario> usuarioOp = usuarioRepo.findById(id);
+		if (usuarioOp.isPresent()){
+			return usuarioOp.get();
+		}
+		throw new RuntimeException("NoUserFound");
 	}
 }

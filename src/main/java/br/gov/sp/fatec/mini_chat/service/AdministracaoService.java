@@ -9,6 +9,10 @@ public interface AdministracaoService {
 	
 	public Usuario criarUsuario(String nickname, String email);
 	
+	public List<Usuario> buscaTodosUsuarios();
+	
+	public Usuario buscaUsuarioByid(Long id);
+	
 	public Grupo criarGrupo(String titulo, String descricao);
 	
 	public Grupo incluirUsuarioNoGrupo(String usuarioNick, String grupoTitulo);

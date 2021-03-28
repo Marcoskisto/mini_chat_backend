@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "grp_grupo")
 public class Grupo {
@@ -30,6 +32,7 @@ public class Grupo {
 	@Column(name="grp_descricao")
 	private String descricao;
 	
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "ugu_grupo_usuario",
 			joinColumns = {@JoinColumn(name = "grp_id")},
@@ -37,6 +40,7 @@ public class Grupo {
 			)
 	private Set<Usuario> usuarios;
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "grupo", cascade = CascadeType.REMOVE)
 	private Set<Mensagem> mensagens;
 	
