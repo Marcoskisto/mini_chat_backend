@@ -52,14 +52,13 @@ class MiniChatApplicationTests {
 		Usuario usuario = usuarioRepo.findById(1L).get();
 		Iterator<Mensagem> mensagems = usuario.getMensagensEnviadas().iterator();
 		assertEquals("ola_maria", (mensagems.next()).getDescription());
-		assertEquals("ola_grupo", (mensagems.next()).getDescription());
 	}
 	
 	@Test
-	void testaMensagemRecebidaPorGrupo() {
+	void testaConversa() {
 		Conversa conversa = conversaRepo.findById(1L).get();
 		Iterator<Mensagem> mensagems = conversa.getMensagens().iterator();
-		assertEquals("ola_grupo", (mensagems.next()).getDescription());
+		assertEquals("ola_maria", (mensagems.next()).getDescription());
 	}
 		
 	@Test
