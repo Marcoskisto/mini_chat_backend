@@ -1,14 +1,9 @@
+
+
 create schema mini_chat;
-
-
 use mini_chat;
 
-drop table msg_mensagem;
-drop table ucu_conversa_usuario;
-drop table usr_usuario;
-drop table cnv_conversa;
-
-create user 'user'@'localhost' identified by 'pass123';
+create user user identified by 'pass123';
 
 grant select, insert, delete, update on mini_chat.* to user@'localhost';
 
@@ -51,5 +46,6 @@ insert into cnv_conversa (cnv_titulo) values("grupo_A");
 insert into usr_usuario (usr_nickname, usr_email) values("joselito", "jose@teste.com");
 insert into usr_usuario (usr_nickname, usr_email) values("maria", "maria@teste.com");
 insert into ucu_conversa_usuario values( 1, 1);
-insert into msg_mensagem (msg_description, usr_origin_id, cnv_conversa_id) values ("ola_maria", 1, 1);
-insert into msg_mensagem (msg_description, usr_origin_id, cnv_conversa_id) values ("ola_joao", 2, 1);
+insert into ucu_conversa_usuario values( 2, 1);
+insert into msg_mensagem (msg_description, msg_origin_id, msg_conversa_id) values ("ola_maria", 1, 1);
+insert into msg_mensagem (msg_description, msg_origin_id, msg_conversa_id) values ("ola_joao", 2, 1);

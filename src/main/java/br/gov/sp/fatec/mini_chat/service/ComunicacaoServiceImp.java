@@ -23,11 +23,11 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 	ConversaRepository conversaRepo;
 	
 	@Override
-	public List<Mensagem> enviaMensagemUsuario(String remetenteNick, String destinatarioNick, String msgTexto) {
+	public List<Mensagem> enviaMensagemConversa(String nickRemetente, String conversaTitulo, String msgTexto) {
 		Mensagem mensagem = new Mensagem();
 		Usuario remetente = new Usuario();
 		
-		remetente = usuarioRepo.findByNicknameIgnoreCase(remetenteNick);
+		remetente = usuarioRepo.findByNicknameIgnoreCase(nickRemetente);
 		
 		mensagem.setRemetente(remetente);
 		mensagem.setDescription(msgTexto);
@@ -36,34 +36,11 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 		return mensagemRepo.findByRemetenteId(remetente.getId());
 	}
 
-	@Override
-	public List<Mensagem> enviaMensagemGrupo(String remetenteNick, String tituloConversa, String msgTexto) {
-		Mensagem mensagem = new Mensagem();
-		Usuario remetente = new Usuario();
-		Conversa conversa = new Conversa();
-		
-		remetente = usuarioRepo.findByNicknameIgnoreCase(remetenteNick);
-		conversa = conversaRepo.findByTituloIgnoreCase(tituloConversa);
-		
-		mensagem.setRemetente(remetente);
-		mensagem.setConversa(conversa);
-		mensagem.setDescription(msgTexto);
-		mensagemRepo.save(mensagem);
-		
-		return mensagemRepo.findByGrupoId(remetente.getId());
-	}
 
 	@Override
-	public List<Mensagem> recuperaConversa(String remetenteNick, String destinatarioNick) {
+	public List<Mensagem> recuperaConversaRemetente(String nickRemetente) {
 		
-		return mensagemRepo.findByRemetenteNicknameAndDestinatarioNickname(remetenteNick, destinatarioNick);
+		return mensagemRepo.findByRemetenteNickname(nickRemetente);
 	
-	}
-
-	@Override
-	public List<Mensagem> recuperaReuniao(String remetenteNick, String tituloGrupo) {
-		
-		return mensagemRepo.findByRemetenteNicknameAndGrupoTitulo(remetenteNick, tituloGrupo);
-		
 	}
 }
