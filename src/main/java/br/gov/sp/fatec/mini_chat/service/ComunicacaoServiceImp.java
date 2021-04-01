@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.gov.sp.fatec.mini_chat.entity.Grupo;
+import br.gov.sp.fatec.mini_chat.entity.Conversa;
 import br.gov.sp.fatec.mini_chat.entity.Mensagem;
 import br.gov.sp.fatec.mini_chat.entity.Usuario;
-import br.gov.sp.fatec.mini_chat.repository.GrupoRepository;
+import br.gov.sp.fatec.mini_chat.repository.ConversaRepository;
 import br.gov.sp.fatec.mini_chat.repository.MensagemRepository;
 import br.gov.sp.fatec.mini_chat.repository.UsuarioRepository;
 
@@ -20,19 +20,16 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 	UsuarioRepository usuarioRepo;
 	
 	@Autowired
-	GrupoRepository grupoRepo;
+	ConversaRepository conversaRepo;
 	
 	@Override
 	public List<Mensagem> enviaMensagemUsuario(String remetenteNick, String destinatarioNick, String msgTexto) {
 		Mensagem mensagem = new Mensagem();
 		Usuario remetente = new Usuario();
-		Usuario destinatario = new Usuario();
 		
 		remetente = usuarioRepo.findByNicknameIgnoreCase(remetenteNick);
-		destinatario = usuarioRepo.findByNicknameIgnoreCase(destinatarioNick);
 		
 		mensagem.setRemetente(remetente);
-		mensagem.setDestinatario(destinatario);
 		mensagem.setDescription(msgTexto);
 		mensagemRepo.save(mensagem);
 		
@@ -40,16 +37,16 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 	}
 
 	@Override
-	public List<Mensagem> enviaMensagemGrupo(String remetenteNick, String tituloGrupo, String msgTexto) {
+	public List<Mensagem> enviaMensagemGrupo(String remetenteNick, String tituloConversa, String msgTexto) {
 		Mensagem mensagem = new Mensagem();
 		Usuario remetente = new Usuario();
-		Grupo grupo = new Grupo();
+		Conversa conversa = new Conversa();
 		
 		remetente = usuarioRepo.findByNicknameIgnoreCase(remetenteNick);
-		grupo = grupoRepo.findByTituloIgnoreCase(tituloGrupo);
+		conversa = conversaRepo.findByTituloIgnoreCase(tituloConversa);
 		
 		mensagem.setRemetente(remetente);
-		mensagem.setGrupo(grupo);
+		mensagem.setConversa(conversa);
 		mensagem.setDescription(msgTexto);
 		mensagemRepo.save(mensagem);
 		

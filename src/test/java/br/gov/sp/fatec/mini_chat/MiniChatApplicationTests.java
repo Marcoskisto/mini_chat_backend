@@ -14,10 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.gov.sp.fatec.mini_chat.entity.Grupo;
+import br.gov.sp.fatec.mini_chat.entity.Conversa;
 import br.gov.sp.fatec.mini_chat.entity.Mensagem;
 import br.gov.sp.fatec.mini_chat.entity.Usuario;
-import br.gov.sp.fatec.mini_chat.repository.GrupoRepository;
+import br.gov.sp.fatec.mini_chat.repository.ConversaRepository;
 import br.gov.sp.fatec.mini_chat.repository.UsuarioRepository;
 
 @SpringBootTest
@@ -29,7 +29,7 @@ class MiniChatApplicationTests {
 	private UsuarioRepository usuarioRepo;
 	
 	@Autowired
-	private GrupoRepository grupoRepo;
+	private ConversaRepository conversaRepo;
 	
 	@Test
 	void contextLoads() {
@@ -38,13 +38,13 @@ class MiniChatApplicationTests {
 	@Test
 	void testaGrupo() {
 		Usuario usuario = usuarioRepo.findById(1L).get();
-		assertEquals("grupo_A", usuario.getGrupos().iterator().next().getTitulo());	
+		assertEquals("grupo_A", usuario.getConversas().iterator().next().getTitulo());	
 	}
 	
 	@Test
 	void testaUsuario() {
-		Grupo grupo = grupoRepo.findById(1L).get();
-		assertEquals("joselito", grupo.getUsuarios().iterator().next().getNickname());
+		Conversa conversa = conversaRepo.findById(1L).get();
+		assertEquals("joselito", conversa.getUsuarios().iterator().next().getNickname());
 	}
 	
 	@Test
@@ -56,16 +56,9 @@ class MiniChatApplicationTests {
 	}
 	
 	@Test
-	void testaMensagemRecebidaPorUsuario() {
-		Usuario usuario = usuarioRepo.findById(2L).get();
-		Iterator<Mensagem> mensagems = usuario.getMensagensRecebidas().iterator();
-		assertEquals("ola_maria", (mensagems.next()).getDescription());
-	}
-	
-	@Test
 	void testaMensagemRecebidaPorGrupo() {
-		Grupo grupo = grupoRepo.findById(1L).get();
-		Iterator<Mensagem> mensagems = grupo.getMensagens().iterator();
+		Conversa conversa = conversaRepo.findById(1L).get();
+		Iterator<Mensagem> mensagems = conversa.getMensagens().iterator();
 		assertEquals("ola_grupo", (mensagems.next()).getDescription());
 	}
 		
@@ -74,15 +67,15 @@ class MiniChatApplicationTests {
 		Usuario usuario = new Usuario();
 		usuario.setNickname("avatar");
 		usuario.setEmail("avatar@teste.com");
-		usuario.setGrupos(new HashSet<Grupo>());
+		usuario.setConversas(new HashSet<Conversa>());
 		
-		Grupo grupo = new Grupo();
-		grupo.setTitulo("GRUPO_B");
-		grupoRepo.save(grupo);
+		Conversa conversa = new Conversa();
+		conversa.setTitulo("GRUPO_B");
+		conversaRepo.save(conversa);
 		
-		usuario.getGrupos().add(grupo);
+		usuario.getConversas().add(conversa);
 		usuarioRepo.save(usuario);
-		assertNotNull(usuario.getGrupos().iterator().next().getId());
+		assertNotNull(usuario.getConversas().iterator().next().getId());
 	}
 	@Test
 	void testaBuscaUsuarioNickAndEmail() {
@@ -99,7 +92,7 @@ class MiniChatApplicationTests {
 	}
 	@Test
 	void testaBuscaUsuarioPorGrupoQuery() {
-		List<Usuario> usuarios = usuarioRepo.buscaUsuarioPorGrupoQuery("grupo_A");
+		List<Usuario> usuarios = usuarioRepo.buscaUsuarioPorConversaQuery("grupo_A");
 		assertFalse(usuarios.isEmpty());
 	}
 }

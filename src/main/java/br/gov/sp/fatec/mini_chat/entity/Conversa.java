@@ -18,30 +18,27 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "grp_grupo")
-public class Grupo {
+@Table(name = "cnv_conversa")
+public class Conversa {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="grp_id")
+	@Column(name="cnv_id")
 	private Long id;
 	
-	@Column(name="grp_titulo")
+	@Column(name="cnv_titulo")
 	private String titulo;
-	
-	@Column(name="grp_descricao")
-	private String descricao;
 	
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "ugu_grupo_usuario",
-			joinColumns = {@JoinColumn(name = "grp_id")},
-			inverseJoinColumns = {@JoinColumn(name = "usr_id")}
+	@JoinTable(name = "ucu_conversa_usuario",
+			joinColumns = {@JoinColumn(name = "ucu_cnv_id")},
+			inverseJoinColumns = {@JoinColumn(name = "ucu_usr_id")}
 			)
 	private Set<Usuario> usuarios;
 	
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "grupo", cascade = CascadeType.REMOVE)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "conversa", cascade = CascadeType.REMOVE)
 	private Set<Mensagem> mensagens;
 	
 	public Long getId() {
@@ -56,12 +53,7 @@ public class Grupo {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+
 	public Set<Usuario> getUsuarios() {
 		return usuarios;
 	}

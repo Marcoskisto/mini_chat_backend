@@ -2,7 +2,7 @@ package br.gov.sp.fatec.mini_chat.service;
 
 import java.util.List;
 
-import br.gov.sp.fatec.mini_chat.entity.Grupo;
+import br.gov.sp.fatec.mini_chat.entity.Conversa;
 import br.gov.sp.fatec.mini_chat.entity.Usuario;
 
 public interface AdministracaoService {
@@ -13,12 +13,11 @@ public interface AdministracaoService {
 	
 	public Usuario buscaUsuarioByid(Long id);
 	
-	public Grupo criarGrupo(String titulo, String descricao);
+	public Conversa criarConversa(String titulo);
 	
-	public Grupo incluirUsuarioNoGrupo(String usuarioNick, String grupoTitulo);
+	public Conversa incluirUsuarioNaConversa(String usuarioNick, String conversaTitulo);
 	
-	public Grupo removerUsuarioDoGrupo(String usuarioNick, String grupoTitulo);
+	public Conversa removerUsuarioDaConversa(String usuarioNick, String grupoTitulo);
 
-	public List<Grupo> excluirGrupo(String titulo);
-	
+	public List<Conversa> excluirConversa(String titulo);
 }

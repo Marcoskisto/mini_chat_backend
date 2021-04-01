@@ -4,9 +4,9 @@ create schema mini_chat;
 use mini_chat;
 
 drop table msg_mensagem;
-drop table ugu_grupo_usuario;
+drop table ucu_conversa_usuario;
 drop table usr_usuario;
-drop table grp_grupo;
+drop table cnv_conversa;
 
 create user 'user'@'localhost' identified by 'pass123';
 
@@ -14,15 +14,12 @@ grant select, insert, delete, update on mini_chat.* to user@'localhost';
 
 
 
-create table grp_grupo ( 
-	grp_id bigint unsigned not null auto_increment,
-    grp_titulo varchar(20) not null,
-    grp_descricao varchar(50),
-    primary key I(grp_id),
-    unique key uni_grupo_titulo(grp_titulo)
+create table cnv_conversa ( 
+	cnv_id bigint unsigned not null auto_increment,
+    cnv_titulo varchar(20) not null,
+    primary key (cnv_id),
+    unique key uni_cnv_titulo(cnv_titulo)
 );
-
-
 
 create table usr_usuario (
     usr_id bigint unsigned not null auto_increment,
@@ -32,29 +29,27 @@ create table usr_usuario (
     unique key uni_usuario_nick(usr_nickname)
 );
 
-create table ugu_grupo_usuario (
-	usr_id bigint unsigned not null,
-    grp_id bigint unsigned not null,
-    primary key (usr_id, grp_id),
-    foreign key usr_id_fk (usr_id) references usr_usuario(usr_id),
-    foreign key grp_id_fk (grp_id) references grp_grupo(grp_id)
+create table ucu_conversa_usuario (
+	ucu_usr_id bigint unsigned not null,
+    ucu_cnv_id bigint unsigned not null,
+    primary key (ucu_usr_id, ucu_cnv_id),
+    foreign key usr_id_fk (ucu_usr_id) references usr_usuario(usr_id),
+    foreign key cnv_id_fk (ucu_cnv_id) references cnv_conversa(cnv_id)
 );
 
 create table msg_mensagem (
     msg_id bigint unsigned not null auto_increment,
     msg_description varchar(100) not null,
-    usr_origin_id bigint unsigned not null,
-    usr_destin_id bigint unsigned,
-    grp_destin_id bigint unsigned,
+    msg_origin_id bigint unsigned not null,
+    msg_conversa_id bigint unsigned,
     primary key (msg_id),
-    foreign key msg_usr_orign_fk (usr_origin_id) references usr_usuario(usr_id),
-    foreign key msg_usr_destin_fk (usr_destin_id) references usr_usuario(usr_id),
-    foreign key msg_grp_fk (grp_destin_id) references grp_grupo(grp_id)
+    foreign key msg_usr_orign_fk (msg_origin_id) references usr_usuario(usr_id),
+    foreign key msg_cnv_fk (msg_conversa_id) references cnv_conversa(cnv_id)
 );
 
-insert into grp_grupo (grp_titulo, grp_descricao) values("grupo_A","discursao sobre BD");
+insert into cnv_conversa (cnv_titulo) values("grupo_A");
 insert into usr_usuario (usr_nickname, usr_email) values("joselito", "jose@teste.com");
 insert into usr_usuario (usr_nickname, usr_email) values("maria", "maria@teste.com");
-insert into ugu_grupo_usuario values( 1, 1);
-insert into msg_mensagem (msg_description, usr_origin_id, usr_destin_id) values ("ola_maria", 1, 2);
-insert into msg_mensagem (msg_description, usr_origin_id, grp_destin_id) values ("ola_grupo", 1, 1);
+insert into ucu_conversa_usuario values( 1, 1);
+insert into msg_mensagem (msg_description, usr_origin_id, cnv_conversa_id) values ("ola_maria", 1, 1);
+insert into msg_mensagem (msg_description, usr_origin_id, cnv_conversa_id) values ("ola_joao", 2, 1);

@@ -3,14 +3,12 @@ package br.gov.sp.fatec.mini_chat.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.gov.sp.fatec.mini_chat.entity.Grupo;
+import br.gov.sp.fatec.mini_chat.entity.Conversa;
 import br.gov.sp.fatec.mini_chat.entity.Usuario;
-import br.gov.sp.fatec.mini_chat.repository.GrupoRepository;
+import br.gov.sp.fatec.mini_chat.repository.ConversaRepository;
 import br.gov.sp.fatec.mini_chat.repository.UsuarioRepository;
 
 @Service
@@ -20,7 +18,7 @@ public class AdministracaoServiceImp implements AdministracaoService{
 	UsuarioRepository usuarioRepo;
 	
 	@Autowired
-	GrupoRepository grupoRepo;	
+	ConversaRepository conversaRepo;	
 	
 	ComunicacaoService comunicacaoService;
 	
@@ -40,59 +38,58 @@ public class AdministracaoServiceImp implements AdministracaoService{
 	}
 
 	@Override
-	public Grupo criarGrupo(String titulo, String descricao) {
-		Grupo grupo = new Grupo();
-		grupo = grupoRepo.findByTituloIgnoreCase(titulo);
+	public Conversa criarConversa(String titulo) {
+		Conversa conversa = new Conversa();
+		conversa = conversaRepo.findByTituloIgnoreCase(titulo);
 		
-		if (grupo == null) {
+		if (conversa == null) {
 			return null;
 		}
 		
-		grupo.setTitulo(titulo);
-		grupo.setDescricao(descricao);
-		grupoRepo.save(grupo);
-		return grupo;
+		conversa.setTitulo(titulo);
+		conversaRepo.save(conversa);
+		return conversa;
 	}
 
 	@Override
-	public List<Grupo> excluirGrupo(String titulo) {
-		Grupo grupo = new Grupo();
-		grupo = grupoRepo.findByTituloIgnoreCase(titulo);
-		if (grupo != null) {
-			grupoRepo.delete(grupo);
+	public List<Conversa> excluirConversa(String titulo) {
+		Conversa conversa = new Conversa();
+		conversa = conversaRepo.findByTituloIgnoreCase(titulo);
+		if (conversa != null) {
+			conversaRepo.delete(conversa);
 		}
-		return grupoRepo.findAll();
+		return conversaRepo.findAll();
 	}
 		
 
 	@Override
-	public Grupo incluirUsuarioNoGrupo(String usuarioNick, String grupoTitulo) {
+	public Conversa incluirUsuarioNaConversa(String usuarioNick, String conversaTitulo) {
 		Usuario usuario = new Usuario();
-		Grupo grupo = new Grupo();
-		usuario = usuarioRepo.findByNicknameOrEmailContainsIgnoreCase(usuarioNick, grupoTitulo);
-		grupo = grupoRepo.findByTituloIgnoreCase(grupoTitulo);
+		Conversa conversa = new Conversa();
+		usuario = usuarioRepo.findByNicknameOrEmailContainsIgnoreCase(usuarioNick, conversaTitulo);
+		conversa = conversaRepo.findByTituloIgnoreCase(conversaTitulo);
 		
 		if (usuario != null) {
-			grupo.getUsuarios().add(usuario);		
-			grupoRepo.save(grupo);
+			conversa.getUsuarios().add(usuario);		
+			conversaRepo.save(conversa);
 		}
-		return grupo;
+		return conversa;
 	}
 
 	@Override
-	public Grupo removerUsuarioDoGrupo(String usuarioNick, String grupoTitulo) {
+	public Conversa removerUsuarioDaConversa(String usuarioNick, String conversaTitulo) {
 		
 		Usuario usuario = new Usuario();
-		Grupo grupo = new Grupo();
+		Conversa conversa = new Conversa();
 		
-		usuario = usuarioRepo.findByNicknameOrEmailContainsIgnoreCase(usuarioNick, grupoTitulo);
-		grupo = grupoRepo.findByTituloIgnoreCase(grupoTitulo);
+		usuario = usuarioRepo.findByNicknameOrEmailContainsIgnoreCase(usuarioNick, conversaTitulo);
+		conversa = conversaRepo.findByTituloIgnoreCase(conversaTitulo);
 		
 		if (usuario != null) {
-			grupo.getUsuarios().remove(usuario);		
-			grupoRepo.save(grupo);
+			conversa.getUsuarios().remove(usuario);		
+			conversaRepo.save(conversa);
 		}
-		return grupo;
+		return conversa;
 	}
 
 	@Override

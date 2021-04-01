@@ -32,13 +32,10 @@ public class Usuario {
 	
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy="usuarios")
-	private Set<Grupo> grupos;
+	private Set<Conversa> conversas;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "remetente")
 	private Set<Mensagem> mensagensEnviadas;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "destinatario")
-	private Set<Mensagem> mensagensRecebidas;
 	
 	public long getId() {
 		return id;
@@ -64,12 +61,12 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public Set<Grupo> getGrupos() {
-		return grupos;
+	public Set<Conversa> getConversas() {
+		return conversas;
 	}
 
-	public void setGrupos(Set<Grupo> grupos) {
-		this.grupos = grupos;
+	public void setConversas(Set<Conversa> conversas) {
+		this.conversas = conversas;
 	}
 
 	public Set<Mensagem> getMensagensEnviadas() {
@@ -79,14 +76,4 @@ public class Usuario {
 	public void setMensagensEnviadas(Set<Mensagem> mensagensEnviadas) {
 		this.mensagensEnviadas = mensagensEnviadas;
 	}
-
-	public Set<Mensagem> getMensagensRecebidas() {
-		return mensagensRecebidas;
-	}
-
-	public void setMensagensRecebidas(Set<Mensagem> mensagensRecebidas) {
-		this.mensagensRecebidas = mensagensRecebidas;
-	}
-	
-	
 }

@@ -18,8 +18,8 @@ public interface UsuarioRepository extends  JpaRepository<Usuario, Long>{
 	
 	public Usuario findByNicknameOrEmailContainsIgnoreCase(String nickname, String email);
 	
-	@Query("select u from Usuario u inner join u.grupos g where g.titulo = ?1")
-	public List<Usuario> buscaUsuarioPorGrupoQuery(String titulo);
+	@Query("select u from Usuario u inner join c.conversas c where c.titulo = ?1")
+	public List<Usuario> buscaUsuarioPorConversaQuery(String titulo);
 
 	public Usuario findByNicknameIgnoreCase(String remetenteNick);
 	

@@ -26,18 +26,13 @@ public class Mensagem {
 	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "usr_origin_id")
+	@JoinColumn(name = "msg_origin_id")
 	private Usuario remetente;
 	
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "usr_destin_id")
-	private Usuario destinatario;
-	
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "grp_destin_id")
-	private Grupo grupo;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "msg_conversa_id")
+	private Conversa conversa;
 	
 	public Long getId() {
 		return id;
@@ -58,16 +53,11 @@ public class Mensagem {
 	public void setRemetente(Usuario remetente) {
 		this.remetente = remetente;
 	}
-	public Usuario getDestinatario() {
-		return destinatario;
+
+	public Conversa getConversa() {
+		return conversa;
 	}
-	public void setDestinatario(Usuario destinatario) {
-		this.destinatario = destinatario;
-	}
-	public Grupo getGrupo() {
-		return grupo;
-	}
-	public void setGrupo(Grupo grupo) {
-		this.grupo = grupo;
+	public void setConversa(Conversa conversa) {
+		this.conversa = conversa;
 	}
 }
