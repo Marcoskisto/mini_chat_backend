@@ -35,7 +35,7 @@ public class Conversa {
 			joinColumns = {@JoinColumn(name = "ucu_cnv_id")},
 			inverseJoinColumns = {@JoinColumn(name = "ucu_usr_id")}
 			)
-	private Set<Usuario> usuarios;
+	private Set<Usuario> destinatarios;
 	
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "conversa", cascade = CascadeType.REMOVE)
@@ -55,10 +55,10 @@ public class Conversa {
 	}
 
 	public Set<Usuario> getUsuarios() {
-		return usuarios;
+		return destinatarios;
 	}
 	public void setUsuarios(Set<Usuario> usuarios) {
-		this.usuarios = usuarios;
+		this.destinatarios = usuarios;
 	}
 	public Set<Mensagem> getMensagens() {
 		return mensagens;

@@ -31,7 +31,7 @@ public class Usuario {
 	private String email;
 	
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy="usuarios")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy="destinatarios")
 	private Set<Conversa> conversas;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "remetente")

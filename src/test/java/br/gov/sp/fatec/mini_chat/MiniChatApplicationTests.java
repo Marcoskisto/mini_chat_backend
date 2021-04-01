@@ -18,6 +18,7 @@ import br.gov.sp.fatec.mini_chat.entity.Conversa;
 import br.gov.sp.fatec.mini_chat.entity.Mensagem;
 import br.gov.sp.fatec.mini_chat.entity.Usuario;
 import br.gov.sp.fatec.mini_chat.repository.ConversaRepository;
+import br.gov.sp.fatec.mini_chat.repository.MensagemRepository;
 import br.gov.sp.fatec.mini_chat.repository.UsuarioRepository;
 
 @SpringBootTest
@@ -30,6 +31,8 @@ class MiniChatApplicationTests {
 	
 	@Autowired
 	private ConversaRepository conversaRepo;
+	
+	@Autowired MensagemRepository mensagemRepo;
 	
 	@Test
 	void contextLoads() {
@@ -44,7 +47,7 @@ class MiniChatApplicationTests {
 	@Test
 	void testaUsuario() {
 		Conversa conversa = conversaRepo.findById(1L).get();
-		assertEquals("joselito", conversa.getUsuarios().iterator().next().getNickname());
+		assertEquals("maria", conversa.getUsuarios().iterator().next().getNickname());
 	}
 	
 	@Test
@@ -90,7 +93,7 @@ class MiniChatApplicationTests {
 		
 	}
 	@Test
-	void testaBuscaUsuarioPorGrupoQuery() {
+	void testaBuscaUsuarioPorConversaQuery() {
 		List<Usuario> usuarios = usuarioRepo.buscaUsuarioPorConversaQuery("grupo_A");
 		assertFalse(usuarios.isEmpty());
 	}

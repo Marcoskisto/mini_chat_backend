@@ -1,8 +1,10 @@
 package br.gov.sp.fatec.mini_chat.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.gov.sp.fatec.mini_chat.entity.Conversa;
 import br.gov.sp.fatec.mini_chat.entity.Mensagem;
@@ -23,7 +25,18 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 	ConversaRepository conversaRepo;
 	
 	@Override
-	public List<Mensagem> enviaMensagemConversa(String nickRemetente, String conversaTitulo, String msgTexto) {
+	@Transactional
+	public Set<Mensagem> enviaMensagemConversa(String nickRemetente, String conversaTitulo, String msgTexto) {
+		
+		Conversa conversa = new Conversa();
+		conversa = conversaRepo.findByTituloIgnoreCase(conversaTitulo);
+		
+		if(conversa == null) {
+			conversa.setTitulo(conversaTitulo);
+			conversaRepo.save(conversa);		
+		}
+		
+		
 		Mensagem mensagem = new Mensagem();
 		Usuario remetente = new Usuario();
 		
@@ -31,9 +44,10 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 		
 		mensagem.setRemetente(remetente);
 		mensagem.setDescription(msgTexto);
+		mensagem.setConversa(conversa);
 		mensagemRepo.save(mensagem);
 		
-		return mensagemRepo.findByRemetenteId(remetente.getId());
+		return conversa.getMensagens();
 	}
 
 
