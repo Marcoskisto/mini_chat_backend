@@ -1,8 +1,10 @@
 package br.gov.sp.fatec.mini_chat.service;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.gov.sp.fatec.mini_chat.entity.Conversa;
@@ -12,6 +14,7 @@ import br.gov.sp.fatec.mini_chat.repository.ConversaRepository;
 import br.gov.sp.fatec.mini_chat.repository.MensagemRepository;
 import br.gov.sp.fatec.mini_chat.repository.UsuarioRepository;
 
+@Service
 public class ComunicacaoServiceImp implements ComunicacaoService{
 	
 	@Autowired
@@ -31,6 +34,7 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 		if(conversa == null) {
 			conversa = new Conversa();
 			conversa.setTitulo(conversaTitulo);
+			conversa.setUsuarios(new HashSet<Usuario>());
 			conversa.getUsuarios().add(bot);
 			conversaRepo.save(conversa);
 		}
@@ -57,14 +61,14 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 		conversaRepo.save(conversa);
 		
 		String msgBoasVindas = String.format("%s entrou na conversa...", nickname);
-		conversa = this.enviaMensagemConversa("Bot", conversaTitulo, msgBoasVindas);
+		conversa = this.enviaMensagemEmConversa("Bot", conversaTitulo, msgBoasVindas);
 		
 		return conversa;
 	}
 	
 	@Override
 	@Transactional
-	public Conversa enviaMensagemConversa(String nickRemetente, String conversaTitulo, String msgTexto) {
+	public Conversa enviaMensagemEmConversa(String nickRemetente, String conversaTitulo, String msgTexto) {
 
 		Usuario remetente = usuarioRepo.findByNicknameIgnoreCase(nickRemetente);
 		
@@ -89,12 +93,9 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 		return conversa;
 	}
 
-
 	@Override
 	public List<Mensagem> buscaConversaPorRemetente(String nickRemetente) {
-		
 		return mensagemRepo.findByRemetenteNickname(nickRemetente);
-	
 	}
 
 	@Override

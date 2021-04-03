@@ -45,6 +45,7 @@ create table msg_mensagem (
 insert into cnv_conversa (cnv_titulo) values("grupo_A");
 insert into usr_usuario (usr_nickname, usr_email) values("joselito", "jose@teste.com");
 insert into usr_usuario (usr_nickname, usr_email) values("maria", "maria@teste.com");
+insert into usr_usuario (usr_nickname, usr_email) values("Bot", "bot@minichat.com.br");
 insert into ucu_conversa_usuario values( 1, 1);
 insert into ucu_conversa_usuario values( 2, 1);
 insert into msg_mensagem (msg_description, msg_origin_id, msg_conversa_id) values ("ola_maria", 1, 1);
