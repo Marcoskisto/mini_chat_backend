@@ -24,7 +24,7 @@ public class Mensagem {
 	@Column(name = "msg_description")
 	private String description;
 	
-	@JsonIgnore
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "msg_origin_id")
 	private Usuario remetente;

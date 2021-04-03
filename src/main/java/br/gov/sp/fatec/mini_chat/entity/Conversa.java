@@ -29,7 +29,6 @@ public class Conversa {
 	@Column(name="cnv_titulo")
 	private String titulo;
 	
-	@JsonIgnore
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "ucu_conversa_usuario",
 			joinColumns = {@JoinColumn(name = "ucu_cnv_id")},
@@ -37,7 +36,6 @@ public class Conversa {
 			)
 	private Set<Usuario> destinatarios;
 	
-	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "conversa", cascade = CascadeType.REMOVE)
 	private Set<Mensagem> mensagens;
 	

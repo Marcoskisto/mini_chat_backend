@@ -29,11 +29,11 @@ public class Usuario {
 	
 	@Column(name = "usr_email")
 	private String email;
-	
-	
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy="destinatarios")
 	private Set<Conversa> conversas;
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "remetente")
 	private Set<Mensagem> mensagensEnviadas;
 	
