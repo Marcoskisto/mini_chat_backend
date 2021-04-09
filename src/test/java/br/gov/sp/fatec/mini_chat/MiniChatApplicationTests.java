@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +95,7 @@ class MiniChatApplicationTests {
 	}
 	@Test
 	void testaBuscaUsuarioPorConversaQuery() {
-		List<Usuario> usuarios = usuarioRepo.buscaUsuarioPorConversaQuery("grupo_A");
+		Set<Usuario> usuarios = usuarioRepo.buscaUsuariosPorConversaQuery("grupo_A");
 		assertFalse(usuarios.isEmpty());
 	}
 }

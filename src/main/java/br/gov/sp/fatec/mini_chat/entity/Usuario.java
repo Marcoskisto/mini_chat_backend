@@ -10,6 +10,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.mini_chat.controller.View;
 
 import java.util.Set;
 
@@ -19,14 +22,17 @@ import javax.persistence.Column;
 @Table(name = "usr_usuario")
 public class Usuario {
 	
+	@JsonView(View.Usuario.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "usr_id")
 	private long id;
 	
+	@JsonView({View.Conversa.class, View.Usuario.class})
 	@Column(name = "usr_nickname")
 	private String nickname;
 	
+	@JsonView(View.Usuario.class)
 	@Column(name = "usr_email")
 	private String email;
 	@JsonIgnore

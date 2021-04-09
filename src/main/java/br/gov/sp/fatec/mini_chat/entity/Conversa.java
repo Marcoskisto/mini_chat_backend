@@ -15,7 +15,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.mini_chat.controller.View;
 
 @Entity
 @Table(name = "cnv_conversa")
@@ -26,9 +28,11 @@ public class Conversa {
 	@Column(name="cnv_id")
 	private Long id;
 	
+	@JsonView({View.Conversa.class, View.ConversaResumo.class})
 	@Column(name="cnv_titulo")
 	private String titulo;
 	
+	@JsonView(View.Conversa.class)
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "ucu_conversa_usuario",
 			joinColumns = {@JoinColumn(name = "ucu_cnv_id")},
@@ -36,6 +40,7 @@ public class Conversa {
 			)
 	private Set<Usuario> destinatarios;
 	
+	@JsonView(View.Conversa.class)
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "conversa", cascade = CascadeType.REMOVE)
 	private Set<Mensagem> mensagens;
 	

@@ -2,6 +2,7 @@ package br.gov.sp.fatec.mini_chat.service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -107,19 +108,48 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 	public List<Conversa> buscaTodasConversas() {
 		return conversaRepo.findAll();
 	}
-	
-	/*
+
 	@Override
-	public List<Conversa> excluirConversa(String titulo) {
+	public Set<Usuario> buscaUsuariosDaConversa(String titulo) {
+		return usuarioRepo.buscaUsuariosPorConversaQuery(titulo);
+	}
+
+	@Override
+	public Conversa buscaConversaPorTitulo(String titulo) {
+		
+		return conversaRepo.findByTituloIgnoreCase(titulo);
+	}
+
+	
+	@Override
+	public List<Conversa> excluirConversa(Long id) {
 		Conversa conversa = new Conversa();
-		conversa = conversaRepo.findByTituloIgnoreCase(titulo);
+		conversa = conversaRepo.findById(id).get();
 		if (conversa != null) {
 			conversaRepo.delete(conversa);
 		}
 		return conversaRepo.findAll();
 	}
+
+	@Override
+	public void excluirMensagem(Long id) {
 		
+		mensagemRepo.deleteById(id);
 	
+	}
+
+	@Override
+	public Mensagem updateMensagem(Long id, String description) {
+		
+		Mensagem mensagem = mensagemRepo.findById(id).get();
+		if(mensagem != null) {
+			mensagem.setDescription(description);
+			mensagemRepo.save(mensagem);
+		}
+		return mensagem;
+	}
+		
+	/*	
 	@Override
 	public Conversa removerUsuarioDaConversa(String usuarioNick, String conversaTitulo) {
 		

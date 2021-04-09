@@ -21,8 +21,17 @@ public interface ComunicacaoService {
     
     public List<Conversa> buscaTodasConversas();
     
+    public Set<Usuario> buscaUsuariosDaConversa(String tituloConversa);
+
+	public Conversa buscaConversaPorTitulo(String titulo);
+	
+    
     //public Conversa removerUsuarioDaConversa(String usuarioNick, String grupoTitulo);
 
- 	//public List<Conversa> excluirConversa(String titulo);
+	public List<Conversa> excluirConversa(Long id);
+	
+	public void excluirMensagem(Long id);
+
+	public Mensagem updateMensagem(Long id, String description);
 	
 }

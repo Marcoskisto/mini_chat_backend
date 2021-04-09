@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.mini_chat.entity.Usuario;
+import br.gov.sp.fatec.mini_chat.exception.RegistroNaoEncontradoException;
 import br.gov.sp.fatec.mini_chat.repository.ConversaRepository;
 import br.gov.sp.fatec.mini_chat.repository.UsuarioRepository;
 
@@ -48,6 +49,6 @@ public class AdministracaoServiceImp implements AdministracaoService{
 		if (usuarioOp.isPresent()){
 			return usuarioOp.get();
 		}
-		throw new RuntimeException("NoUserFound");
+		throw new RegistroNaoEncontradoException("Usuario não encontrado");
 	}
 }

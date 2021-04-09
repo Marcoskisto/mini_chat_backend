@@ -10,7 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.mini_chat.controller.View;
 
 @Entity
 @Table(name = "msg_mensagem")
@@ -21,15 +23,16 @@ public class Mensagem {
 	@Column(name = "msg_id")
 	private Long id;
 	
+	@JsonView({View.MensagemResumo.class,View.Conversa.class})
 	@Column(name = "msg_description")
 	private String description;
 	
 	
+	@JsonView({View.MensagemResumo.class, View.Conversa.class})
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "msg_origin_id")
 	private Usuario remetente;
 	
-	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "msg_conversa_id")
 	private Conversa conversa;
