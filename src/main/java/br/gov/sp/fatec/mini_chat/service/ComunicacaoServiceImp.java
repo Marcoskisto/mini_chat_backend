@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 	ConversaRepository conversaRepo;
 	
 	@Override
+	@PreAuthorize("isAuthenticated()")
 	public Conversa criaConversa(String conversaTitulo) {
 		Usuario bot = usuarioRepo.findByNicknameIgnoreCase("bot");
 		Conversa conversa = conversaRepo.findByTituloIgnoreCase(conversaTitulo);
@@ -45,6 +47,7 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 	
 	@Override
 	@Transactional
+	@PreAuthorize("isAuthenticated()")
 	public Conversa incluiUsuarioNaConversa(String nickname, String conversaTitulo) {
 		
 		Usuario usuario = usuarioRepo.findByNicknameIgnoreCase(nickname);
@@ -69,6 +72,7 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 	
 	@Override
 	@Transactional
+	@PreAuthorize("isAuthenticated()")
 	public Conversa enviaMensagemEmConversa(String nickRemetente, String conversaTitulo, String msgTexto) {
 
 		Usuario remetente = usuarioRepo.findByNicknameIgnoreCase(nickRemetente);
@@ -95,6 +99,7 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 	}
 
 	@Override
+	@PreAuthorize("isAuthenticated()")
 	public List<Mensagem> buscaConversaPorRemetente(String nickRemetente) {
 		return mensagemRepo.findByRemetenteNickname(nickRemetente);
 	}
@@ -105,16 +110,19 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 	}
 
 	@Override
+	@PreAuthorize("isAuthenticated()")
 	public List<Conversa> buscaTodasConversas() {
 		return conversaRepo.findAll();
 	}
 
 	@Override
+	@PreAuthorize("isAuthenticated()")
 	public Set<Usuario> buscaUsuariosDaConversa(String titulo) {
 		return usuarioRepo.buscaUsuariosPorConversaQuery(titulo);
 	}
 
 	@Override
+	@PreAuthorize("isAuthenticated()")
 	public Conversa buscaConversaPorTitulo(String titulo) {
 		
 		return conversaRepo.findByTituloIgnoreCase(titulo);
@@ -122,6 +130,7 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 
 	
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<Conversa> excluirConversa(Long id) {
 		Conversa conversa = new Conversa();
 		conversa = conversaRepo.findById(id).get();
@@ -132,13 +141,13 @@ public class ComunicacaoServiceImp implements ComunicacaoService{
 	}
 
 	@Override
+	@PreAuthorize("isAuthenticated()")
 	public void excluirMensagem(Long id) {
-		
 		mensagemRepo.deleteById(id);
-	
 	}
 
 	@Override
+	@PreAuthorize("hasPermission(#id, 'role_admin')")
 	public Mensagem updateMensagem(Long id, String description) {
 		
 		Mensagem mensagem = mensagemRepo.findById(id).get();

@@ -24,9 +24,15 @@ public class UsuarioController {
 	AdministracaoService adminService;
 	
 	@JsonView(View.Usuario.class)
-	@GetMapping
+	@GetMapping(value="/dados")
 	public List<Usuario> buscarTodosUsuarios(){
 		return adminService.buscaTodosUsuarios();
+	}
+	
+	@JsonView(View.UsuarioResumo.class)
+	@GetMapping(value="/lista")
+	public List<Usuario> buscarListaDeUsuarios(){
+		return adminService.buscaListaDeUsuarios();
 	}
 	
 	@JsonView(View.Usuario.class)
@@ -40,9 +46,9 @@ public class UsuarioController {
 	public Usuario cadastraUsuario(@RequestBody Usuario usuario) {
 		return adminService.criarUsuario(
 				usuario.getNickname(),
-				usuario.getEmail()
-				);
+				usuario.getEmail(),
+				usuario.getSenha(), 
+				usuario.getCredenciais().toString()
+			);
 	}
-	
-
 }

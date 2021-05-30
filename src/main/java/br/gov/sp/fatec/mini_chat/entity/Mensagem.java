@@ -18,6 +18,7 @@ import br.gov.sp.fatec.mini_chat.controller.View;
 @Table(name = "msg_mensagem")
 public class Mensagem {
 	
+	@JsonView({View.MensagemResumo.class, View.Conversa.class})
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "msg_id")
@@ -28,7 +29,7 @@ public class Mensagem {
 	private String description;
 	
 	
-	@JsonView({View.MensagemResumo.class, View.Conversa.class})
+	@JsonView(View.Conversa.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "msg_origin_id")
 	private Usuario remetente;

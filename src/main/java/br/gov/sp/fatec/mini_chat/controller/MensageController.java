@@ -48,6 +48,7 @@ public class MensageController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@JsonView(View.MensagemResumo.class)
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Mensagem> updateMensagem(@RequestBody Mensagem mensagem, @PathVariable Long id) {
 	    Mensagem updatedMensagem = comunicService.updateMensagem(id, mensagem.getDescription());
